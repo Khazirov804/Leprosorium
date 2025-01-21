@@ -31,7 +31,9 @@ end
 
 # Обработчик GET-запроса на главную страницу ('/')
 get '/' do
-  # Использование шаблона erb с HTML-кодом для отображения ссылки.
+
+	@result = @db.execute('SELECT * FROM Posts order by id desc')
+
   erb :index
 end
 
