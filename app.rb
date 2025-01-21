@@ -32,7 +32,7 @@ end
 # Обработчик GET-запроса на главную страницу ('/')
 get '/' do
   # Использование шаблона erb с HTML-кодом для отображения ссылки.
-  erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"
+  erb :index
 end
 
 # Обработчик GET-запроса для страницы создания новой записи ('/new')
