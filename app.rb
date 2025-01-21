@@ -32,7 +32,7 @@ end
 # Обработчик GET-запроса на главную страницу ('/')
 get '/' do
 
-	@result = @db.execute('SELECT * FROM Posts order by id desc')
+	@results = @db.execute('SELECT * FROM Posts order by id desc')
 
   erb :index
 end
