@@ -58,5 +58,5 @@ post '/new' do
   #Он является частью библиотеки sqlite3 и позволяет отправлять запросы в базу данных SQLite.
   @db.execute "INSERT INTO Posts (created_date, content) VALUES (DATETIME('now'), ?)", [content] # Передаем параметры в запрос.
   # Простая проверка: отображение введённого текста на странице (без сохранения в базе).
-  erb "You typed: #{content}" # Вывод введённого текста с использованием шаблона erb.
+  redirect to '/'
 end
