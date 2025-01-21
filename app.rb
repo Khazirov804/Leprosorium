@@ -20,17 +20,13 @@ end
 
 # Настройка приложения (выполняется один раз при запуске)
 configure do
-  init_db # Инициализация базы данных.
-
-  # Создание таблицы 'Posts', если она не существует
-  @db.execute <<-SQL
-    create table if not exists Posts
+	init_db
+	@db.execute 'create table if not exists Posts
     (
-      id INTEGER PRIMARY KEY AUTOINCREMENT, -- Уникальный идентификатор записи.
-      created_date TEXT,                    -- Дата создания записи (строка, чтобы избежать проблем с форматами дат).
-      content TEXT                          -- Текстовое содержимое записи.
-    )
-  SQL
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      created_date TEXT,
+      content TEXT
+    )'
 end
 
 # Обработчик GET-запроса на главную страницу ('/')
@@ -54,6 +50,11 @@ post '/new' do
   	@error = 'Type post text'
     return erb :new # Возвращаем пользователю ту же страницу с ошибками.
   end
+
+  #db = get_db # Подключаемся к базе данных.
+  #execute используется для выполнения SQL-запросов к базе данных.
+  #Он является частью библиотеки sqlite3 и позволяет отправлять запросы в базу данных SQLite.
+  @db.execute "INSERT INTO Posts (created_date, content) VALUES (DATETIME('now'), ?)", [content] # Передаем параметры в запрос.
   # Простая проверка: отображение введённого текста на странице (без сохранения в базе).
-  erb "You typed #{content}" # Вывод введённого текста с использованием шаблона erb.
+  erb "You typed: #{content}" # Вывод введённого текста с использованием шаблона erb.
 end
