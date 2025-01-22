@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 # Подключение необходимых библиотек
 require 'rubygems'         # Управление гемами (не обязательно в современных версиях Ruby, но включено для совместимости).
 require 'sinatra'          # Основной фреймворк для создания веб-приложений.
@@ -47,7 +45,7 @@ end
 
 # Обработчик GET-запроса для страницы создания новой записи ('/new')
 get '/new' do
-  erb :new # Отображение шаблона `views/new.erb`, предназначенного для ввода текста записи.
+  erb :new # Отображение шаблона views/new.erb, предназначенного для ввода текста записи.
 end
 
 # Обработчик POST-запроса для страницы создания новой записи ('/new')
@@ -81,5 +79,18 @@ end
 post '/details/:post_id' do
 	post_id = params[:post_id]
 	content = params[:content]
-	erb "You typed comment #{content} for post #{post_id}"
+
+	@db.execute "INSERT INTO Comments
+		 (created_date,
+		  content,
+		  post_id
+		 )
+		  VALUES
+		 (
+		  ?,
+		  DATETIME('now'),
+		  ?
+		 )", [content,post_id] # Передаем параметры в запрос
+
+  redirect to('/details/' + post_id)
 end
