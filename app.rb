@@ -27,6 +27,14 @@ configure do
       created_date TEXT,
       content TEXT
     )'
+
+	@db.execute 'create table if not exists Comments
+    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      created_date TEXT,
+      content TEXT,
+      post_id INTEGER
+    )'
 end
 
 # Обработчик GET-запроса на главную страницу ('/')
