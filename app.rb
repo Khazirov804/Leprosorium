@@ -60,3 +60,8 @@ post '/new' do
   # Простая проверка: отображение введённого текста на странице (без сохранения в базе).
   redirect to '/'
 end
+
+get '/details/:post_id' do
+	post_id = params[:post_id]
+	erb "Displayinh information for post with id #{post_id}"
+end
